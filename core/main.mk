@@ -349,6 +349,9 @@ ifneq ($(filter ro.setupwizard.mode=ENABLED, $(call collapse-pairs, $(ADDITIONAL
 endif
 endif
 
+## Kidream vendor
+$(call inherit-product, vendor/kidream/configs/common.mk) 
+
 ## sdk ##
 
 ifdef is_sdk_build
