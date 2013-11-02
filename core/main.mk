@@ -62,6 +62,9 @@ TOPDIR :=
 
 BUILD_SYSTEM := $(TOPDIR)build/core
 
+# Include Kidream vendor
+include vendor/kidream/configs/common.mk
+
 # This is the default target.  It must be the first declared target.
 .PHONY: droid
 DEFAULT_GOAL := droid
@@ -99,10 +102,7 @@ include $(BUILD_SYSTEM)/config.mk
 # file does the rm -rf inline so the deps which are all done below will
 # be generated correctly
 include $(BUILD_SYSTEM)/cleanbuild.mk
-
-# Include the google-specific config
--include vendor/google/build/config.mk
-
+include 
 VERSION_CHECK_SEQUENCE_NUMBER := 3
 -include $(OUT_DIR)/versions_checked.mk
 ifneq ($(VERSION_CHECK_SEQUENCE_NUMBER),$(VERSIONS_CHECKED))
@@ -351,9 +351,6 @@ ifneq ($(filter ro.setupwizard.mode=ENABLED, $(call collapse-pairs, $(ADDITIONAL
           ro.setupwizard.mode=OPTIONAL
 endif
 endif
-
-## Kidream vendor
-$(call inherit-product, vendor/kidream/configs/common.mk) 
 
 ## sdk ##
 
