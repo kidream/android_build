@@ -145,11 +145,12 @@ ifneq ($(shell java -version 2>&1 | grep -i openjdk),)
 $(info ************************************************************)
 $(info You are attempting to build with an unsupported JDK.)
 $(info $(space))
-$(info You use OpenJDK but only Sun/Oracle JDK is supported.)
+$(info You use OpenJDK but normally only Sun/Oracle JDK is supported.)
+$(info But even your version is not officialy supported, you can try.)
 $(info Please follow the machine setup instructions at)
 $(info $(space)$(space)$(space)$(space)https://source.android.com/source/download.html)
 $(info ************************************************************)
-$(error stop)
+#$(error stop)
 endif
 
 # Check for the correct version of java
