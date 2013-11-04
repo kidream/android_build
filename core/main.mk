@@ -73,11 +73,11 @@ $(DEFAULT_GOAL):
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 ifneq ($(TARGET_CUSTOM_RELEASETOOL),)
-        $(error TARGET_CUSTOM_RELEASETOOL is deprecated)
+	$(error TARGET_CUSTOM_RELEASETOOL is deprecated)
 endif
-        $(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(KD_TARGET_PACKAGE)
-        $(hide) $(MD5SUM) $(KD_TARGET_PACKAGE) > $(KD_TARGET_PACKAGE).md5sum
-        @echo -e ${CL_CYN}"Package Complete: $(KD_TARGET_PACKAGE)"${CL_RST}
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(KD_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(KD_TARGET_PACKAGE) > $(KD_TARGET_PACKAGE).md5sum
+	@echo -e ${CL_CYN}"Package Complete: $(KD_TARGET_PACKAGE)"${CL_RST}
 
 # -----------------------------------------------------------------
 # The update package
@@ -103,9 +103,9 @@ else
 endif
 
 $(INTERNAL_UPDATE_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
-        @echo -e ${CL_YLW}"Package:"${CL_RST}" $@"
-        MKBOOTIMG=$(BOARD_CUSTOM_BOOTIMG_MK) \
-        $(IMG_FROM_TARGET_SCRIPT) -v \
+	@echo -e ${CL_YLW}"Package:"${CL_RST}" $@"
+	MKBOOTIMG=$(BOARD_CUSTOM_BOOTIMG_MK) \
+	$(IMG_FROM_TARGET_SCRIPT) -v \
            -s $(extensions) \
            -p $(HOST_OUT) \
            $(BUILT_TARGET_FILES_PACKAGE) $@
