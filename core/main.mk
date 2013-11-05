@@ -70,7 +70,6 @@ $(DEFAULT_GOAL):
 # Used to force goals to build.  Only use for conditionally defined goals.
 
 .PHONY: otapackage
-.PHONY: otapackage
 KD_TARGET_PACKAGE := $(PRODUCT_OUT)/kidream-$(KD_VERSION).zip
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
@@ -101,7 +100,15 @@ endif
 
 ifeq ($(TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT),)
     IMG_FROM_TARGET_SCRIPT := ./build/tools/releasetools/img_from_target_files
+endif
 
+$(INTERNAL_UPDATE_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
+        @echo -e ${CL_YLW}"Package:"${CL_RST}" $@"
+        MKBOOTIMG=$(BOARD_CUSTOM_BOOTIMG_MK) \
+        $(IMG_FROM_TARGET_SCRIPT) -v \
+         -s $(extensions) \
+         -p $(HOST_OUT) \
+         $(BUILT_TARGET_FILES_PACKAGE) $@
 
 .PHONY: FORCE
 FORCE:
