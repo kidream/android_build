@@ -75,11 +75,11 @@ KD_TARGET_PACKAGE := $(PRODUCT_OUT)/kidream-$(KD_VERSION).zip
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 ifneq ($(TARGET_CUSTOM_RELEASETOOL),)
-        $(error TARGET_CUSTOM_RELEASETOOL is deprecated)
+	$(error TARGET_CUSTOM_RELEASETOOL is deprecated)
 endif
-        $(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(KD_TARGET_PACKAGE)
-        $(hide) $(MD5SUM) $(KD_TARGET_PACKAGE) > $(KD_TARGET_PACKAGE).md5sum
-        @echo -e ${CL_CYN}"Package Complete: $(KD_TARGET_PACKAGE)"${CL_RST}
+	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(KD_TARGET_PACKAGE)
+	$(hide) $(MD5SUM) $(KD_TARGET_PACKAGE) > $(KD_TARGET_PACKAGE).md5sum
+	@echo -e ${CL_CYN}"Package Complete: $(KD_TARGET_PACKAGE)"${CL_RST}
 
 # -----------------------------------------------------------------
 # The update package
@@ -145,9 +145,9 @@ ifneq ($(HOST_OS),windows)
 ifneq ($(HOST_OS)-$(HOST_ARCH),darwin-ppc)
 # check for a case sensitive file system
 ifneq (a,$(shell mkdir -p $(OUT_DIR) ; \
-                echo a > $(OUT_DIR)/casecheck.txt; \
-                    echo B > $(OUT_DIR)/CaseCheck.txt; \
-                cat $(OUT_DIR)/casecheck.txt))
+		echo a > $(OUT_DIR)/casecheck.txt; \
+		    echo B > $(OUT_DIR)/CaseCheck.txt; \
+		cat $(OUT_DIR)/casecheck.txt))
 $(warning ************************************************************)
 $(warning You are building on a case-insensitive filesystem.)
 $(warning Please move your source tree to a case-sensitive filesystem.)
@@ -237,9 +237,9 @@ endif  # HOST_OS is darwin
 endif
 
 $(shell echo 'VERSIONS_CHECKED := $(VERSION_CHECK_SEQUENCE_NUMBER)' \
-        > $(OUT_DIR)/versions_checked.mk)
+	> $(OUT_DIR)/versions_checked.mk)
 $(shell echo 'BUILD_EMULATOR ?= $(BUILD_EMULATOR)' \
-        >> $(OUT_DIR)/versions_checked.mk)
+	>> $(OUT_DIR)/versions_checked.mk)
 endif
 
 # These are the modifier targets that don't do anything themselves, but
