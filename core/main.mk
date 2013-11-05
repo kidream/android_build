@@ -70,14 +70,16 @@ $(DEFAULT_GOAL):
 # Used to force goals to build.  Only use for conditionally defined goals.
 
 .PHONY: otapackage
+.PHONY: otapackage
+KD_TARGET_PACKAGE := $(PRODUCT_OUT)/kidream-$(KD_VERSION).zip
 otapackage: $(INTERNAL_OTA_PACKAGE_TARGET)
 bacon: otapackage
 ifneq ($(TARGET_CUSTOM_RELEASETOOL),)
-	$(error TARGET_CUSTOM_RELEASETOOL is deprecated)
+        $(error TARGET_CUSTOM_RELEASETOOL is deprecated)
 endif
-	$(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(KD_TARGET_PACKAGE)
-	$(hide) $(MD5SUM) $(KD_TARGET_PACKAGE) > $(KD_TARGET_PACKAGE).md5sum
-	@echo -e ${CL_CYN}"Package Complete: $(KD_TARGET_PACKAGE)"${CL_RST}
+        $(hide) ln -f $(INTERNAL_OTA_PACKAGE_TARGET) $(KD_TARGET_PACKAGE)
+        $(hide) $(MD5SUM) $(KD_TARGET_PACKAGE) > $(KD_TARGET_PACKAGE).md5sum
+        @echo -e ${CL_CYN}"Package Complete: $(KD_TARGET_PACKAGE)"${CL_RST}
 
 # -----------------------------------------------------------------
 # The update package
@@ -96,19 +98,9 @@ $(INTERNAL_UPDATE_PACKAGE_TARGET): extensions := $(TARGET_DEVICE_DIR)/../common
 else
 $(INTERNAL_UPDATE_PACKAGE_TARGET): extensions := $(TARGET_RELEASETOOLS_EXTENSIONS)
 endif
+
 ifeq ($(TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT),)
     IMG_FROM_TARGET_SCRIPT := ./build/tools/releasetools/img_from_target_files
-else
-    IMG_FROM_TARGET_SCRIPT := $(TARGET_RELEASETOOL_IMG_FROM_TARGET_SCRIPT)
-endif
-
-$(INTERNAL_UPDATE_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
-	@echo -e ${CL_YLW}"Package:"${CL_RST}" $@"
-	MKBOOTIMG=$(BOARD_CUSTOM_BOOTIMG_MK) \
-	$(IMG_FROM_TARGET_SCRIPT) -v \
-           -s $(extensions) \
-           -p $(HOST_OUT) \
-           $(BUILT_TARGET_FILES_PACKAGE) $@
 
 
 .PHONY: FORCE
